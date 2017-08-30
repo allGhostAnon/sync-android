@@ -168,12 +168,10 @@ public abstract class ReplicatorBuilder<S, T, E> {
         }
     }
 
-    // TODO split this up or at least rename
     // - set default port if needed and validate protocol (http(s))
     // - scrub out username and password if given, and pass it into cookie interceptor or discard it if we're doing IAM
     // - add IAM interceptor if needed
     // - else add cookie interceptor if needed
-
     private URI addAuthInterceptorIfRequired(URI uri) {
 
         String uriProtocol = uri.getScheme();
@@ -386,7 +384,10 @@ public abstract class ReplicatorBuilder<S, T, E> {
      *     use cookies or basic authentication. This means that the userinfo part of the URL, if set, will be ignored.
      * </p>
      * <p>
-     *     TODO link to some reference material about IAM
+     *     See the
+     *     <a href="https://console.bluemix.net/docs/services/Cloudant/guides/iam.html#ibm-cloud-identity-and-access-management" target="_blank">
+     *         Bluemix Identity and Access Management
+     *     </a> documentation for more details.
      * </p>
      *
      * @param iamApiKey The API key
