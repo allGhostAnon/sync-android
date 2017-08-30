@@ -1,3 +1,6 @@
+# 2.1.0 (Unreleased)
+- [NEW] Added support for authenticating with IAM API keys. 
+
 # 2.0.2 (2017-06-20)
 - [FIXED] Removed cloudant-sync-datastore-android project dependency
   on com.google.android:android. This dependency was inadvertently
