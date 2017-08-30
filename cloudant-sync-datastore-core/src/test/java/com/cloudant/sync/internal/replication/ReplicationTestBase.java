@@ -19,7 +19,7 @@ package com.cloudant.sync.internal.replication;
 import com.cloudant.common.CouchTestBase;
 import com.cloudant.http.HttpConnectionRequestInterceptor;
 import com.cloudant.http.HttpConnectionResponseInterceptor;
-import com.cloudant.http.interceptors.CookieInterceptor;
+import com.cloudant.http.internal.interceptors.CookieInterceptor;
 import com.cloudant.sync.documentstore.DocumentStore;
 import com.cloudant.sync.internal.mazha.CouchClient;
 import com.cloudant.sync.internal.mazha.CouchConfig;

@@ -22,7 +22,7 @@ package com.cloudant.sync.internal.mazha;
 
 import com.cloudant.http.HttpConnectionRequestInterceptor;
 import com.cloudant.http.HttpConnectionResponseInterceptor;
-import com.cloudant.http.interceptors.CookieInterceptor;
+import com.cloudant.http.internal.interceptors.CookieInterceptor;
 
 import java.net.URI;
 import java.net.URISyntaxException;
