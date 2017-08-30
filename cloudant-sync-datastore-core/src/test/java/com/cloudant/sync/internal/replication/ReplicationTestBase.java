@@ -20,6 +20,7 @@ import com.cloudant.common.CouchTestBase;
 import com.cloudant.http.HttpConnectionRequestInterceptor;
 import com.cloudant.http.HttpConnectionResponseInterceptor;
 import com.cloudant.http.internal.interceptors.CookieInterceptor;
+import com.cloudant.http.internal.interceptors.CookieInterceptorBase;
 import com.cloudant.sync.documentstore.DocumentStore;
 import com.cloudant.sync.internal.mazha.CouchClient;
 import com.cloudant.sync.internal.mazha.CouchConfig;
@@ -238,8 +239,8 @@ public abstract class ReplicationTestBase extends CouchTestBase {
         Assert.assertEquals(CookieInterceptor.class, reqIList.get(1).getClass());
         Assert.assertEquals(1, respIList.size());
         Assert.assertEquals(CookieInterceptor.class, respIList.get(0).getClass());
-        CookieInterceptor ci = (CookieInterceptor)reqIList.get(1);
-        Field srbField = CookieInterceptor.class.getDeclaredField("sessionRequestBody");
+        CookieInterceptorBase ci = (CookieInterceptorBase)reqIList.get(1);
+        Field srbField = CookieInterceptorBase.class.getDeclaredField("sessionRequestBody");
         srbField.setAccessible(true);
         byte[] srb = (byte[])srbField.get(ci);
         String srbString = new String(srb);
