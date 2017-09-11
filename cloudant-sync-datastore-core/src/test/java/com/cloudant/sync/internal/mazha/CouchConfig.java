@@ -20,12 +20,16 @@
 
 package com.cloudant.sync.internal.mazha;
 
+import com.cloudant.common.TestOptions;
 import com.cloudant.http.HttpConnectionRequestInterceptor;
 import com.cloudant.http.HttpConnectionResponseInterceptor;
 import com.cloudant.http.internal.interceptors.CookieInterceptor;
+import com.cloudant.http.internal.interceptors.IamCookieInterceptor;
 
+import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -52,8 +56,8 @@ public class CouchConfig {
 
     public CouchConfig(URI rootUri) {
         this(rootUri,
-                Collections.<HttpConnectionRequestInterceptor>emptyList(),
-                Collections.<HttpConnectionResponseInterceptor>emptyList(),
+                new ArrayList<HttpConnectionRequestInterceptor>(),
+                new ArrayList<HttpConnectionResponseInterceptor>(),
                 null,
                 null);
     }
@@ -68,9 +72,20 @@ public class CouchConfig {
         this.responseInterceptors = responseInterceptors;
         this.username = username;
         this.password = password;
-
+        try {
+            if (TestOptions.COUCH_IAM_API_KEY != null) {
+                int slash = this.rootUri.toString().lastIndexOf("/");
+                String root = this.rootUri.toString().substring(0, slash);
+                IamCookieInterceptor ici = new IamCookieInterceptor(TestOptions.COUCH_IAM_API_KEY,
+                        new URL("https://iam.bluemix.net/oidc/token"),
+                        root);
+                this.requestInterceptors.add(ici);
+                this.responseInterceptors.add(ici);
+            }
+        } catch (MalformedURLException mue) {
+            throw new RuntimeException(mue);
+        }
     }
-
 
     public List<HttpConnectionRequestInterceptor> getRequestInterceptors(boolean includeCookie) {
         CookieInterceptor cookieInterceptor = buildCookieInterceptor();

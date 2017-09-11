@@ -52,8 +52,8 @@ public class SpecifiedCouch {
                 uriString = String.format("%s://%s:%s/%s", HTTP_PROTOCOL, COUCH_HOST, COUCH_PORT, dbName);
             }
             CouchConfig config = new CouchConfig(new URI(uriString),
-                    Collections.<HttpConnectionRequestInterceptor>emptyList(),
-                    Collections.<HttpConnectionResponseInterceptor>emptyList(),
+                    new ArrayList<HttpConnectionRequestInterceptor>(),
+                    new ArrayList<HttpConnectionResponseInterceptor>(),
                     COUCH_USERNAME,
                     COUCH_PASSWORD);
             return config;
